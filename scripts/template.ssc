@@ -1,0 +1,147 @@
+// Name: Stellarium script
+// License: Public Domain
+// Author: Chris Bennett
+// Version: 1.0
+// Description: Template for Stellarium scripts.
+
+include("settings.inc");
+include("common_objects.inc");
+include("images.inc");
+
+setup();
+
+// set the date and get sunrise/sunset/twilsiriusight times for the location
+var dtg = "2026-03-01T00:00:00";
+var sun = getSun(dtg);
+
+// Preload some images
+loadImage(alf_CMa);
+loadImage(alf_CMi);
+
+// Main script entry Point
+function main() {
+    core.setDate(sun.sunset, spec = "local");
+
+    StelMovementMgr.deselection();
+    StelMovementMgr.lookZenith();
+    StelMovementMgr.zoomTo(180, 5);
+    core.wait(3);
+
+    // fast forward to astronomical twilight
+    core.setTimeRate(800);
+    core.waitFor(sun.astTwilightEven, spec = "local");
+    core.setTimeRate(0);
+    pauseKey();
+
+    setupConstellations();
+
+    // --- Go to Canis Major ---
+    core.selectConstellationByName("CMa");
+    core.moveToSelectedObject(3);
+    StelMovementMgr.zoomTo(60, 3);
+    core.wait(3);
+    pauseKey();
+
+    // Sirius
+    StelSkyLayerMgr.setFlagShow(alf_CMa);
+    StelSkyLayerMgr.showLayer("alf_CMa", true);
+    core.selectObjectByName("HIP 32349", true);
+    StelMovementMgr.autoZoomIn(5);
+    var L1 = LabelMgr.labelObject("Sirius", "HIP 32349", visible = true,
+        fontSize = 20, fontColor = "#999999", side = "W", labelDistance = 25.0);
+    core.wait(5);
+    StelMovementMgr.zoomTo(0.06, 5);
+    core.wait(3);
+    StarMgr.setFlagStars(false);
+    pauseKey();
+
+    StarMgr.setFlagStars(true);
+    StelMovementMgr.autoZoomOut(8);
+    core.selectConstellationByName("CMa");
+    core.wait(3);
+    StelSkyLayerMgr.showLayer("alf_CMa", false);
+    core.removeSkyImage("alf_CMa");
+    LabelMgr.deleteAllLabels();
+    core.moveToSelectedObject(8);
+    core.wait(8);
+
+    ConstellationMgr.deselectConstellations();
+    core.wait(3);
+
+    // --- Go to Canis Minor ---
+    core.selectConstellationByName("CMi");
+    core.moveToSelectedObject(3);
+    StelMovementMgr.zoomTo(60, 3);
+    core.wait(3);
+    pauseKey();
+
+    // Procyon
+    StelSkyLayerMgr.setFlagShow(true);
+    StelSkyLayerMgr.showLayer("alf_CMi", true);
+    core.selectObjectByName("HIP 37279", true);
+    StelMovementMgr.autoZoomIn(5);
+    var L1 = LabelMgr.labelObject("Procyon", "HIP 37279", visible = true,
+        fontSize = 20, fontColor = "#999999", side = "W", labelDistance = 25.0);
+    core.wait(5);
+    StelMovementMgr.zoomTo(0.06, 5);
+    core.wait(3);
+    StarMgr.setFlagStars(false);
+    pauseKey();
+
+    StarMgr.setFlagStars(true);
+    StelMovementMgr.autoZoomOut(8);
+    core.selectConstellationByName("CMi");
+    core.wait(3);
+    StelSkyLayerMgr.showLayer("alf_CMi", false);
+    core.removeSkyImage("alf_CMi");
+    LabelMgr.deleteAllLabels();
+    core.moveToSelectedObject(8);
+    core.wait(8);
+
+    ConstellationMgr.deselectConstellations();
+    core.wait(3);
+
+    // --- Go to Ophiuchus ---
+    core.selectConstellationByName("Oph");
+    core.moveToSelectedObject(3);
+    StelMovementMgr.zoomTo(90, 3);
+    core.wait(3);
+    pauseKey();
+
+    // Barnard's Star
+    core.selectObjectByName("Barnard's Star", true);
+    StelMovementMgr.autoZoomIn(3);
+    core.wait(5);
+    var L3 = LabelMgr.labelObject("Barnard's Star", "Barnard's Star", visible = true,
+        fontSize = 20, fontColor = "#999999", side = "W", labelDistance = 25.0);
+    StelMovementMgr.zoomTo(3, 3);
+    core.wait(3);
+    pauseKey();
+
+    // Barnard's Star is moving at 10.3 arcseconds per year
+    core.setDate("2026-01-01T00:00:00", spec = "local");
+    StelMovementMgr.zoomTo(2, 3);
+    core.selectObjectByName("Barnard's Star", false);
+
+    for (var i = 0; i < 100; i++) {
+        core.setDate("+1 year");
+        core.wait(0.1);
+    }
+
+    pauseKey();
+    core.setDate(sun.astTwilightEven, spec = "local");
+
+    StelMovementMgr.autoZoomOut(8);
+    core.selectConstellationByName("Oph");
+    LabelMgr.deleteAllLabels();
+    core.moveToSelectedObject(8);
+    core.wait(3);
+    ConstellationMgr.deselectConstellations();
+}
+
+main();
+pauseKey();
+
+cleanup();
+altPan(0.01, 2); // goHome() is buggy from the Zenith, so pan up a little first
+core.goHome();
