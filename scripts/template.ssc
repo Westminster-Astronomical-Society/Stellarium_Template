@@ -10,11 +10,12 @@ include("images.inc");
 
 setup();
 
-// set the date and get sunrise/sunset/twilsiriusight times for the location
+// set the date and get sunrise/sunset/twilight times for the location
 var dtg = "2026-03-01T00:00:00";
 var sun = getSun(dtg);
 
-// Preload some images
+// Preload some images. Parameters are in images.inc
+// Setup() will delete them so load them after.
 loadImage(alf_CMa);
 loadImage(alf_CMi);
 
@@ -28,9 +29,7 @@ function main() {
     core.wait(3);
 
     // fast forward to astronomical twilight
-    core.setTimeRate(800);
-    core.waitFor(sun.astTwilightEven, spec = "local");
-    core.setTimeRate(0);
+    fastForward(800, sun.astTwilightEven);
     pauseKey();
 
     setupConstellations();
@@ -42,8 +41,8 @@ function main() {
     core.wait(3);
     pauseKey();
 
-    // Sirius
-    StelSkyLayerMgr.setFlagShow(alf_CMa);
+    // Sirius (Alpha Canis Majoris, HIP 32349)
+    StelSkyLayerMgr.setFlagShow(true);
     StelSkyLayerMgr.showLayer("alf_CMa", true);
     core.selectObjectByName("HIP 32349", true);
     StelMovementMgr.autoZoomIn(5);
@@ -75,12 +74,12 @@ function main() {
     core.wait(3);
     pauseKey();
 
-    // Procyon
+    // Procyon (Alpha Canis Minoris, HIP 37279)
     StelSkyLayerMgr.setFlagShow(true);
     StelSkyLayerMgr.showLayer("alf_CMi", true);
     core.selectObjectByName("HIP 37279", true);
     StelMovementMgr.autoZoomIn(5);
-    var L1 = LabelMgr.labelObject("Procyon", "HIP 37279", visible = true,
+    var L2 = LabelMgr.labelObject("Procyon", "HIP 37279", visible = true,
         fontSize = 20, fontColor = "#999999", side = "W", labelDistance = 25.0);
     core.wait(5);
     StelMovementMgr.zoomTo(0.06, 5);
@@ -108,11 +107,11 @@ function main() {
     core.wait(3);
     pauseKey();
 
-    // Barnard's Star
-    core.selectObjectByName("Barnard's Star", true);
+    // Barnard's Star (HIP 87937)
+    core.selectObjectByName("HIP 87937", true);
     StelMovementMgr.autoZoomIn(3);
     core.wait(5);
-    var L3 = LabelMgr.labelObject("Barnard's Star", "Barnard's Star", visible = true,
+    var L3 = LabelMgr.labelObject("Barnard's Star", "HIP 87937", visible = true,
         fontSize = 20, fontColor = "#999999", side = "W", labelDistance = 25.0);
     StelMovementMgr.zoomTo(3, 3);
     core.wait(3);
@@ -121,7 +120,7 @@ function main() {
     // Barnard's Star is moving at 10.3 arcseconds per year
     core.setDate("2026-01-01T00:00:00", spec = "local");
     StelMovementMgr.zoomTo(2, 3);
-    core.selectObjectByName("Barnard's Star", false);
+    core.selectObjectByName("HIP 87937", false);
 
     for (var i = 0; i < 100; i++) {
         core.setDate("+1 year");
