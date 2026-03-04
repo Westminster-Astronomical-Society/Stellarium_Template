@@ -84,7 +84,7 @@ function setup() {
     core.wait(2);
     // core.setObserverLocation("Bear Branch", "Earth");
     core.setObserverLocation(-76.986769, 39.647307, 210, 2, "BBNC", "Earth");
-    LandscapeMgr.setCurrentLandscapeName("Bear Branch");-
+    LandscapeMgr.setCurrentLandscapeName("Bear Branch");
 
     core.setGuiVisible(false);
 
