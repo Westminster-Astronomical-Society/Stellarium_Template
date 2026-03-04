@@ -55,10 +55,24 @@ function setup() {
     // az mount, atmosphere, landscape, no lines, labels or markers
     core.clear("natural");
 
+    MarkerMgr.deleteAllMarkers();
+    LabelMgr.deleteAllLabels();
+
+    ScreenImageMgr.deleteAllImages();
+
+    StelSkyLayerMgr.setFlagShow(false);
+    var keys = StelSkyLayerMgr.getAllKeys();
+    core.debug(StelSkyLayerMgr.getAllKeys());
+
+    if (keys.length > 2) {
+        for (var i = 2; i < keys.length; i++) {
+            core.removeSkyImage(keys[i]);
+        };
+    };
+
     GridLinesMgr.setColorEquatorGrid(DirtyPurple);
     GridLinesMgr.setColorAzimuthalGrid(VeryDarkGreen);
-
-    StelSkyLayerMgr.setFlagShow(false)
+    StelSkyLayerMgr.setFlagShow(false);
 
     SolarSystem.setFontSize(15); // default size is 13
 
@@ -137,6 +151,17 @@ function cleanup() {
 
     MarkerMgr.deleteAllMarkers();
     LabelMgr.deleteAllLabels();
+
+    ScreenImageMgr.deleteAllImages();
+
+    var keys = StelSkyLayerMgr.getAllKeys();
+    core.debug(StelSkyLayerMgr.getAllKeys());
+
+    if (keys.length > 2) {
+        for (var i = 2; i < keys.length; i++) {
+            core.removeSkyImage(keys[i]);
+        };
+    };
 
     core.setGuiVisible(true);
 }
