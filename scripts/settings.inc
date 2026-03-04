@@ -276,7 +276,7 @@ function decPan(distance, duration = 5) {
  * @param {number} wait - The time at which the original time rate will be restored, a date string "2025-01-01T00:00",
  *                        or a relative time "+3 hours". If "L", waits for the user to press the "L" key.
  */
-function fastForward(rate, wait = "L") {
+function fastForward(rate, wait = "L", spec = "local") {
     var timerate = core.getTimeRate();
     core.setTimeRate(rate);
     if (wait == "L") {
@@ -292,7 +292,7 @@ function fastForward(rate, wait = "L") {
         LabelMgr.deleteLabel(L);
     }
     else {
-        core.waitFor(wait, spec = "local");
+        core.waitFor(wait, spec = spec);
         core.setTimeRate(timerate);
     }
 }
