@@ -11,13 +11,12 @@ var circumpolar = new Array("UMi", "UMa", "Dra",
     "Cep", "Cas", "Cam");
 
 var zodiac = new Array("Ari", "Tau", "Gem", "Can", "Leo",
-    "Virgo", "Libra", "Scorpius", "Sgt", "Cap",
-    "Aqr", "Psc");
+    "Vir", "Lib", "Sco", "Sgr", "Cap", "Aqr", "Psc");
 
 var springConst = new Array("UMi", "UMa", "Lyn",
     "CVn", "Boo", "Can", "Leo", "LMi", "Com",
     "Hya", "Sex", "Cra", "Cor", "Vir", "Pyx", "Ant", "Cen",
-    "Lupus");
+    "Lup");
 
 var summerConst = new Array("Dra", "CrB", "Lyr", "Cyg",
     "Her", "Vul", "Sge", "Del", "Ser", "Oph",
