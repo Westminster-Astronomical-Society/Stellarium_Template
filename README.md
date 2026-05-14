@@ -98,5 +98,12 @@ Provides functions to save and restore the current state of the Stellarium simul
 This is updated to work with the latest Stellarium API.
 
 ### `solar_calc.js`
+
 Provides functions to perform solar calculations like calculating sunrise, sunset,
 and twilight times. It works, that's all I can say.
+
+### Landscapes
+
+The `landscapes` folder contains a panorama image of Bear Branch Nature Center and a `landscape.ini` configuration file to load the image as a landscape in Stellarium.
+
+
