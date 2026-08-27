@@ -14,10 +14,6 @@ setup();
 var dtg = "2026-03-01T00:00:00";
 var sun = getSun(dtg);
 
-// Preload some images. Parameters are in images.inc
-// Setup() will delete them so load them after.
-loadImage(alf_CMa);
-loadImage(alf_CMi);
 
 // Main script entry Point
 function main() {
@@ -33,6 +29,11 @@ function main() {
     pauseKey();
 
     setupConstellations();
+
+    // Preload some images. Parameters are in images.inc
+    // Setup() will delete them so load them after.
+    loadImage(alf_CMa);
+    loadImage(alf_CMi);
 
     // --- Go to Canis Major ---
     core.selectConstellationByName("CMa");
