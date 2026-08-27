@@ -11,8 +11,8 @@ include("images.inc");
 setup();
 
 // set the date and get sunrise/sunset/twilight times for the location
-var dtg = "2026-03-01T00:00:00";
-var sun = getSun(dtg);
+var dtg = "2026-08-27T00:00:00";
+var sun = getSun(dtg, tz = -4); // default is -5 EST
 
 
 // Main script entry Point
